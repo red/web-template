@@ -1,0 +1,35 @@
+{
+	"editor.rulers": [100],
+	"prettier.printWidth": 100,
+	"prettier.eslintIntegration": true,
+	"editor.formatOnSave": false, // otherwise we'll mis-format HTML template files
+	"[javascript]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true
+	},
+	"[typescript]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true
+	},
+	"[json]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true
+	},
+	"[jsonc]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true
+	},
+	"[css]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true
+	},
+	"[scss]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true
+	},
+	"css.validate": false, // Disable style built-in lint
+	"scss.validate": false,
+	"stylelint.enable": true, // Enable stylelint
+	"eslint.validate": ["javascript", "javascriptreact", "vue"],
+	"eslint.packageManager": "yarn"
+}

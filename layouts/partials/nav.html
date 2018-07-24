@@ -1,0 +1,41 @@
+<header id="main-nav" class="w-full bg-theme-primary">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between py-4 px-8">
+        <div class="text-2l font-semibold flex flex-row justify-between w-full md:w-16">
+            <div class="w-16">
+                <a class="text-red no-underline" href="{{ .Site.BaseURL | relLangURL }}" title="{{ i18n "home" }}">
+                    <img src="/images/red-logo.svg">
+                </a>
+            </div>
+            <div class="block md:hidden">
+                <button class="flex items-center px-3 py-2 border rounded theme-mobile-menu" @click="isMainMenuOpen = !isMainMenuOpen">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                </button>
+            </div>
+        </div>
+        <nav class="items-start md:items-center flex-col md:flex-row md:flex md:justify-end w-full" :class="{ 'mobile:hidden': !isMainMenuOpen }">
+            <ul class="list-reset">
+                {{- $currentPage := . -}}
+                {{ $list := (.Site.Menus.main) }}
+                {{ $len := (len $list) }}
+                {{ range $index, $element := $list }}
+                <li
+                    {{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+                    class="nav-item active"
+                    {{ else }}
+                    class="nav-item"
+                    {{ end }}>
+                    <a
+                    {{ if eq (add $index 1) $len }}
+                    class="nav-cta dim"
+                    {{ else }}
+                    class="nav-link dim"
+                    {{ end }}
+                    href="{{ .URL | relLangURL }}">
+                    {{ .Name }}
+                    </a>
+                </li>
+                {{ end }}
+            </ul>
+        </nav>
+    </div>
+</header>

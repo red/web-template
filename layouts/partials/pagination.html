@@ -1,0 +1,11 @@
+{{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+<div class="my-8">
+	{{- if .Paginator.HasPrev }}
+	<a class="inline-block h-8 w-8 rounded inline-flex items-center justify-center bg-white border border-grey text-rl-gray no-underline" href="{{ .Paginator.Prev.URL }}">&#x25C0;</a>
+	{{- end }}
+	<span class="text-grey-darkest">{{ .Paginator.PageNumber }} of {{ .Paginator.TotalPages }}</span>
+	{{- if .Paginator.HasNext }}
+	<a class="inline-block h-8 w-8 rounded inline-flex items-center justify-center bg-white border border-grey text-rl-gray no-underline" href="{{ .Paginator.Next.URL }}">&#x25B6;</a>
+	{{- end }}
+</div>
+{{ end }}

@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<!-- DEFAULT TERMS - shows up at /tags/, e.g. -->
+<main>
+    <section class="w-full px-2 md:px-8 py-2 mt-8">
+        <div class="container mx-auto px-2 md:px-8 font-semibold">
+            <h1 class="text-grey-darkest">{{ .Title }}</h1>
+            <div>
+                {{ $data := .Data }}
+                {{ range $key, $value := .Data.Terms.Alphabetical }}
+                <h2 class="mb-2">
+                    <a href="{{ $.Site.LanguagePrefix }}/{{ $data.Plural }}/{{ $value.Name | urlize }}" class="tag no-underline text-xl">#{{ $value.Name }} ({{ $value.Count }})</a>
+                </h2>
+                {{ end }}
+            </div>
+        </div>
+    </section>
+
+</main>
+
+{{ end }}

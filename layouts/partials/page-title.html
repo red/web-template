@@ -1,0 +1,8 @@
+{{ $st := cond (isset . "subtitle") (markdownify .subtitle) "" }}
+
+<div class="min-h-xs bg-theme-gradient flex items-center text-center md:pt-8 pb-8">
+    <div class="mx-auto px-2">
+        <h1 class="text-white text-4xl">{{ .title }}</h1>
+        <h2 class="mt-4 max-w-sm text-rl-gray text-lg leading-normal font-normal subtitle">{{ $st }}</h2>
+    </div>
+</div>

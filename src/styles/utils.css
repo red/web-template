@@ -1,0 +1,73 @@
+.dim {
+	opacity: 1;
+	transition: opacity 0.15s ease-in;
+}
+
+.dim:focus,
+.dim:hover {
+	opacity: 0.5;
+	transition: opacity 0.15s ease-in;
+}
+
+.dim:active {
+	opacity: 0.8;
+	transition: opacity 0.15s ease-out;
+}
+
+.btn {
+	@apply .inline-block .my-4 .py-2 .px-4 .min-w-2xs .rounded-full .cursor-pointer;
+	@apply .no-underline .bg-grey .text-white .text-center .text-sm;
+}
+
+.btn-red {
+	@apply .bg-red;
+}
+
+.btn-red:hover {
+	@apply .bg-red-dark;
+
+	transition: background-color 0.15s ease-out;
+}
+
+.btn-red:active {
+	opacity: 0.8;
+	transition: opacity 0.15s ease-out;
+}
+
+.btn-outline {
+	@apply .leading-normal .no-underline .whitespace-no-wrap .text-center .text-grey;
+	@apply .border .border-solid .rounded-full .border-grey;
+	@apply .inline-block .px-6 .py-2 .min-w-2xs;
+}
+
+.btn-outline-red {
+	@apply .text-rl-red .border-rl-red;
+}
+
+.btn-red-outline:hover {
+	@apply .border-red-dark;
+
+	transition: border-color 0.15s ease-out;
+	transition: color 0.15s ease-out;
+}
+
+.btn-red-outline:active {
+	opacity: 0.8;
+	transition: opacity 0.15s ease-out;
+}
+
+.card {
+	@apply .w-full .rounded-xl .overflow-hidden .bg-white .shadow-lg .px-6 .py-8 .mb-8;
+}
+
+.card-title {
+	@apply .avenir-black .font-bold .text-xl .mb-2 .text-center .text-rl-gray;
+}
+
+.text-input {
+	@apply .shadow .appearance-none .border .rounded .w-full .py-2 .px-3 .text-grey-darker;
+}
+
+.tag {
+	@apply .inline-block .bg-grey-lighter .rounded-full .px-3 .py-1 .text-sm .font-semibold .text-grey-darker .mr-2;
+}

@@ -1,0 +1,9 @@
+node_modules
+yarn-error.log
+
+public
+data/*.json
+static/js/main.*.js
+static/js/vendor.*.js
+static/styles/main.*.css
+*.map

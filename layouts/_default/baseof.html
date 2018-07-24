@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{ .Hugo.Generator }}
+    {{ range .AlternativeOutputFormats -}}
+        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+    <!-- specify default title -->
+    <title>{{ block "title" . }}
+		{{ .Title }}
+	{{ end }}</title>
+    {{ partial "header_includes" . }}
+</head>
+<body class="avenir bg-rl-gray-lighter leading-tight h-full">
+
+<div id="app" class="flex flex-col min-h-full">
+    {{ partial "secondary_nav" . }}
+    {{ partial "nav" . }}
+    <div class="flex-1">
+        {{ block "main" . }}
+        {{ end }}
+    </div>
+    {{ partial "footer" . }}
+</div>
+{{ partial "footer_includes" . }}
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+/**
+ * ACCORDION
+ */
+
+.has-dropdown {
+	cursor: pointer;
+}
+
+.has-dropdown:not(.is-open) .description {
+	display: none;
+}
+
+.has-dropdown:not(.is-open) .arrow {
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px solid config('colors.rl-gray');
+}
+
+.has-dropdown.is-open .arrow {
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 6px solid config('colors.rl-gray');
+}

@@ -1,0 +1,27 @@
+{{- $hasButton := (and (isset . "button_text") (isset . "button_url")) -}}
+{{- $buttonUrl := cond $hasButton (relLangURL .button_url) "" -}}
+<article class="max-w-lg w-full min-h-xs lg:flex mb-8 rounded-xl shadow-lg">
+	{{ with .thumbnail }}
+		<div class="h-48 lg:h-auto lg:w-64 flex-none bg-cover bg-center rounded-t-xl lg:rounded-t-none lg:rounded-l-xl text-center overflow-hidden" style="background-image: url('{{ . }}');">
+		</div>
+	{{ end }}
+	<div class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b-xl lg:rounded-b-none lg:rounded-r-xl px-4 flex flex-col flex-grow justify-between leading-normal">
+		<div class="px-8 pt-8 pb-4">
+			<div class="mb-2">
+				{{- if $hasButton -}}
+				<a class="avenir-black font-bold text-rl-gray text-2xl no-underline rl-l-title-underline" href="{{ $buttonUrl }}">{{ .title }}</a>
+				{{- else -}}
+				<span class="avenir-black font-bold text-rl-gray text-2xl rl-l-title-underline">{{ .title }}</span>
+				{{- end -}}
+			</div>
+			<div class="text-grey-darker text-base content {{ if not $hasButton }}mb-4{{ end }}">
+				{{ .description | markdownify }}
+			</div>
+		</div>
+		{{- if $hasButton -}}
+		<div class="px-8 pt-4 pb-8">
+			<a class="btn-outline btn-outline-red" href="{{ $buttonUrl }}">{{ .button_text }}</a>
+		</div>
+		{{- end -}}
+	</div>
+</article>

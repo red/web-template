@@ -1,0 +1,69 @@
+{{ define "title" }} {{ .Title }} &ndash; {{ .Site.Params.Title }} {{ end }}
+
+{{ define "main" }}
+
+<section class="w-full px-2 md:px-8 py-2 mt-8">
+    <div class="container mx-auto px-2 md:px-8 font-semibold flex flex-col md:flex-row justify-around">
+        <div>
+            {{- $paginator := .Paginate ( where .Data.Pages.ByDate.Reverse "Section" "blog" ) }}
+            {{- range $paginator.Pages }}
+                {{- .Render "summary" }}
+            {{- end }}
+            {{- if eq $paginator.TotalNumberOfElements 0 }}
+                <h3 class="text-red">You don't have any posts yet!</h3>
+            {{ end }}
+
+            {{ partial "pagination.html" . }}
+        </div>
+        <aside class="ml-4">
+            <div class="card lg:min-w-xs">
+                <div class="card-title rl-ctr-title-underline">Stay Updated</div>
+                <div class="text-center mb-4">
+                    <a class="no-underline text-red hover:text-red-dark" href="index.xml">{{ partial "icon" (dict "icon" "rss") }} Subscribe via RSS</a>
+                </div>
+                <input type="text" class="text-input mx-auto" placeholder="you@abc.com">
+                <div class="text-center">
+                    <a href="#" class="btn btn-red mx-auto">Subscribe</a>
+                </div>
+            </div>
+            <div class="card lg:min-w-xs">
+                <div class="card-title rl-ctr-title-underline">Search Blog</div>
+                <input type="text" class="text-input mx-auto" placeholder="gtk backend">
+                <div class="text-center">
+                    <a href="#" class="btn btn-red mx-auto">Search</a>
+                </div>
+            </div>
+            <div class="card lg:min-w-xs">
+                <div class="card-title rl-ctr-title-underline">Categories</div>
+                <ul class="list-reset mb-4 text-center">
+                    {{ range .Site.Taxonomies.category.Alphabetical }}
+                        <li>
+                            <a class="no-underline text-rl-gray dim" href="{{ "category/" | relLangURL }}{{ .Name | urlize | lower }}" title="{{ .Name | humanize }}">
+                                {{- .Name | humanize }}
+                            </a>
+                        </li>
+                    {{ end }}
+                </ul>
+            </div>
+            <div class="card lg:min-w-xs">
+                <div class="card-title rl-ctr-title-underline">Top Tags</div>
+                <ul class="list-reset mb-4 text-center">
+                    {{ with .Site.Taxonomies.tags.ByCount }}
+                        {{ range first 5 . }}
+                            <li>
+                                <a class="no-underline text-rl-gray dim" href="{{ "tags/" | relLangURL }}{{ .Name | urlize | lower }}" title="{{ .Name | humanize }}">
+                                    {{- .Name | humanize | lower }} ({{ .Count -}})
+                                </a>
+                            </li>
+                        {{ end }}
+                    {{ end }}
+                </ul>
+                <div class="text-center">
+                    <a href="/tags/" class="no-underline text-rl-gray dim">See all tags</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+
+{{ end }}

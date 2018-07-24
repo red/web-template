@@ -1,0 +1,9 @@
+<section class="py-4">
+	<div class="container mx-auto mt-12 flex flex-col items-center">
+		<div class="grid grid-columns-1 grid-gap-xs sm:grid-columns-{{ div .Params.num_cols 2 }} sm:grid-gap-sm lg:grid-columns-{{ .Params.num_cols }} lg:grid-gap-lg grid-justify-center">
+			{{ range .Params.cards }}
+				{{ partial "card" . }}
+			{{ end }}
+		</div>
+	</div>
+</section>

@@ -1,0 +1,20 @@
+name: "Featherweight"
+license: "BSD3"
+licenselink: "https://github.com/red/web-template/blob/master/LICENSE"
+description: "Base theme for websites related to the Red language."
+homepage: "https://github.com/red/web-template"
+tags:
+  - "blog"
+  - "responsive"
+  - "widgets"
+  - "rss"
+features:
+  - "blog"
+  - "responsive"
+  - "widgets"
+  - "rss"
+min_version: "0.40"
+
+author:
+  name: "Grayscale Digital"
+  homepage: "https://grayscale.digital"

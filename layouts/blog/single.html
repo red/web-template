@@ -1,0 +1,54 @@
+{{ define "title" }}
+	{{ .Title }} &ndash; Blog &ndash; {{ .Site.Title }}
+{{ end }}
+
+{{ define "main" }}
+
+<section class="w-full px-2 md:px-8 py-2 mt-12 md:mt-24">
+	<div class="container mx-auto px-2 md:px-8">
+		{{ if and (isset .Params "hero_type") (isset .Params "hero_src") }}
+			<div class="relative">
+				<div class="shadow-blurred text-center">
+					{{ if (eq .Params.hero_type "image") }}
+					<div class="min-h-xsm bg-center bg-no-repeat bg-cover" style="background-image: url('{{ .Params.hero_src }}');"></div>
+					{{ end }}
+					{{ if (eq .Params.hero_type "video") }}
+					{{ .Params.hero_src | safeHTML }}
+					{{ end }}
+				</div>
+                <div class="absolute pin-b pin-r -mb-4 mr-12 text-rl-gray bg-rl-gray-lightest pl-8 py-4 rounded-xl text-left min-w-xs">{{ i18n "category" }}: {{ .Params.category | title }}</div>
+			</div>
+		{{ end }}
+		<div class="max-w-md mx-auto mt-12 md:mt-24">
+			<h1 class="avenir-black text-grey-darker text-4xl">{{ .Title }}</h1>
+			<div class="text-rl-gray mb-2 opacity-50">{{ .Date.Format "2 January, 2006" }} | By {{ .Params.author }}</div>
+			{{ range .Params.tags }}
+				<a class="tag no-underline" href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">#{{ . }}</a>
+			{{ end }}
+			<div class="text-grey-darkest mb-12 md:mb-24 content">
+				{{ .Content }}
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="bg-theme-gradient border-top-theme w-full">
+	{{/* TODO: (in .Params.blocks.template "action-feature") */}}
+	{{ if (isset .Params "blocks") }}
+		{{- range .Params.blocks -}}
+			<div class="min-h-xs flex flex-col justify-center">
+				{{- if eq .template "action-feature" -}}{{ partial "blocks/action-feature" (dict "Params" .) }}{{- end -}}
+			</div>
+			{{- if eq .template "narrow-cta" -}}{{ partial "blocks/narrow-cta" (dict "Params" .) }}{{- end -}}
+		{{- end -}}
+	{{ else }}
+		{{ $p := (dict "heading" (i18n "cta_heading") "content" (i18n "cta_desc") "button_text" (i18n "contact") "button_url" (relLangURL "contact/") "bg_dark" true)}}
+		{{ $p2 := (dict "description" (i18n "cta_narrow_heading") "link_text" (i18n "cta_narrow_text") "link_url" (relLangURL "contact/")) }}
+		<div class="min-h-xs flex flex-col justify-center">
+			{{ partial "blocks/action-feature" (dict "Params" $p) }}
+		</div>
+		{{ partial "blocks/narrow-cta" (dict "Params" $p2) }}
+	{{ end }}
+</div>
+
+{{ end }}

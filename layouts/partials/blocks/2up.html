@@ -1,0 +1,19 @@
+<section class="">
+	<div class="container mx-auto mt-12 px-2 md:px-8">
+		{{- with .Params.heading -}}
+			<h3 class="px-2 md:px-8 font-semibold text-2xl text-rl-gray rl-l-title-underline">{{ markdownify . }}</h3>
+		{{- end -}}
+		<div class="grid grid-columns-1 md:grid-columns-2">
+			<div class="px-2 md:px-8 py-4 text-grey-darker content">
+				{{- with .Params.left -}}
+					{{ markdownify . }}
+				{{- end -}}
+			</div>
+			{{- with .Params.right -}}
+				<div class="px-2 md:px-8 py-4 text-grey-darker content">
+					{{ markdownify . }}
+				</div>
+			{{- end -}}
+		</div>
+	</div>
+</section>

@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<main>
+
+    <section class="w-full px-2 md:px-8 py-2 mt-8">
+        <div class="container mx-auto px-2 md:px-8 font-semibold">
+            <h1 class="mb-4 text-grey-darkest">Posts tagged with "{{ .Title | lower }}"</h1>
+            <div class="mb-4">
+                <a href="/tags/" class="no-underline text-rl-gray text-xl dim">See all tags</a>
+            </div>
+            <div>
+                {{ range .Data.Pages }}
+                    {{ .Render "summary" }}
+                {{ end }}
+            </div>
+        </div>
+    </section>
+
+</main>
+
+{{ end }}

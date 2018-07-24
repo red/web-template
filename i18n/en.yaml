@@ -1,0 +1,24 @@
+home:
+  other: Home
+ecosystem:
+  other: Ecosystem
+language:
+  other: Language
+about:
+  other: About Red
+subscribe:
+  other: Stay Updated on Red
+submitBtn:
+  other: Submit
+category:
+  other: Category
+contact:
+  other: Contact Us
+by:
+  other: By
+postedTo:
+  other: 'This article has also been posted to:'
+twitterShare:
+  other: >-
+    <i class="fab fa-twitter"></i> Did you like this article? Share it on
+    Twitter!

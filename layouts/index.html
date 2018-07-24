@@ -1,0 +1,25 @@
+{{ define "main" }}
+
+    <!-- Use page-specific blockloader, since we need to divide up some sections -->
+    {{- range .Params.blocks -}}
+        {{- if eq .template "hero" -}}{{ partial "blocks/hero" (dict "Params" .) }}{{- end -}}
+        {{- if eq .template "media-feature" -}}{{ partial "blocks/media-feature" (dict "Params" .) }}{{- end -}}
+        {{- if eq .template "narrow-feature" -}}{{ partial "blocks/narrow-feature" (dict "Params" .) }}{{- end -}}
+        {{- if eq .template "call-to-action" -}}{{ partial "blocks/cta" (dict "Params" .) }}{{- end -}}
+        {{- if eq .template "1up" -}}{{ partial "blocks/1up" (dict "Params" .) }}{{- end -}}
+        {{- if eq .template "2up" -}}{{ partial "blocks/2up" (dict "Params" .) }}{{- end -}}
+        {{- if eq .template "1up-media" -}}{{ partial "blocks/1up-media" (dict "Params" .) }}{{- end -}}
+        {{- if eq .template "card-grid" -}}{{ partial "blocks/card-grid" (dict "Params" .) }}{{- end -}}
+        {{- if eq .template "grid-list" -}}{{ partial "blocks/grid-list" (dict "Params" .) }}{{- end -}}
+    {{- end -}}
+
+    {{ .Content }}
+
+    <div class="bg-theme-gradient curve-top w-full">
+        {{- range .Params.blocks -}}
+            {{- if eq .template "action-feature" -}}{{ partial "blocks/action-feature" (dict "Params" .) }}{{- end -}}
+            {{- if eq .template "narrow-cta" -}}{{ partial "blocks/narrow-cta" (dict "Params" .) }}{{- end -}}
+        {{- end -}}
+    </div>
+
+{{ end }}

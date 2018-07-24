@@ -1,0 +1,5 @@
+<a class="content-li" href="{{ .RelPermalink }}">
+    <div class="arrow-right float-right mt-2"></div>
+    <div class="text-grey-darker text-lg font-bold">{{ .Title }}</div>
+    <div class="text-grey-darker">{{ .Date.Format "January 2, 2006" }} | {{ i18n "by" }} {{ .Params.author }}</div>
+</a>

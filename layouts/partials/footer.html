@@ -1,0 +1,37 @@
+<footer class="bg-rl-light-blue text-white w-full pt-4">
+    <div class="relative h-full">
+        <div class="relative container mx-auto grid grid-columns-1 sm:grid-columns-2 md:grid-columns-4 z-10">
+            <div class="px-8 py-4">
+                <p class="font-semibold">{{ i18n "ecosystem" }}</p>
+                <ul class="list-reset">
+                    {{ range .Site.Params.navigation.ecosystem -}}
+                    <li><a class="no-underline text-white dim" href="{{ .URL }}">{{ .Name }}</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+            <div class="md:col-span-2 px-8 py-4">
+                <p class="font-semibold">{{ i18n "about" }}</p>
+                <ul class="list-reset">
+                    {{ range .Site.Menus.main -}}
+                    <li><a class="no-underline text-white dim" href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+            <div class="px-8 py-4">
+                <p>{{ i18n "subscribe" }}</p>
+                <input type="email" class="text-input" placeholder="you@abc.com">
+                <input type="submit" value="{{ i18n "submitBtn" }}" class="btn btn-red">
+            </div>
+        </div>
+        <div class="relative container mx-auto px-8 z-10">
+            {{ range .Site.Params.navigation.social -}}
+            <a class="text-white no-underline mr-4" href="{{ .URL }}" title="{{ .Name }}">{{ partial "icon" (dict "icon" .Identifier) }}</a>
+            {{ end }}
+            <div class="my-4 text-grey">{{ .Site.Params.CopyrightHTML | safeHTML }}</div>
+            <div class="mt-4 mb-8 text-grey opacity-25"><a href="https://grayscale.digital" class="text-grey no-underline">Site by Grayscale Digital</a></div>
+        </div>
+        <div class="w-full absolute pin-b z-0">
+            <svg class="block mx-auto h-64 w-1/2"><use xlink:href="/styles/symbol-defs.svg#red-logo-bg"></use></svg>
+        </div>
+    </div>
+</footer>

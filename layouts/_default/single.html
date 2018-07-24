@@ -1,0 +1,10 @@
+{{ define "title" }}
+    {{ .Title }} &ndash; {{ .Site.Params.Title }}
+{{ end }}
+
+{{ define "main" }}
+    {{ partial "page-title" (dict "title" .Title "subtitle" .Params.subtitle)}}
+
+    {{ .Content }}
+
+{{ end }}

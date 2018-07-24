@@ -1,0 +1,44 @@
+<section class="w-full bg-blue-darker">
+    <div class="container mx-auto flex items-center justify-between py-1 px-4">
+        <div class="text-sm">
+            <div class="w-32 relative inline-block mr-2">
+                <nav id="ecosystem-nav">
+                    <div class="dropdown">
+                        <div class="dropdown-header">{{ i18n "ecosystem" }}</div>
+                        <div class="dropdown-menu">
+                            <ul class="submenu list-reset">
+                                {{ range .Site.Params.navigation.ecosystem -}}
+                                    <li><a class="dropdown-item" href="{{ .URL }}">{{ .Name }}</a></li>
+                                {{ end }}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="w-32 relative inline-block">
+                <nav id="lang-nav">
+                    <div class="dropdown">
+                        {{ $home := .Site.Home }}
+                        <div class="dropdown-header">{{- partial "icon" (dict "icon" .Lang) -}} {{ $home.Language.LanguageName }}</div>
+                        <div class="dropdown-menu">
+                            <ul class="submenu list-reset">
+                                {{ range $home.Translations -}}
+                                    <li><a class="dropdown-item" href="{{ .Permalink }}">
+                                        {{- partial "icon" (dict "icon" .Lang) -}}
+                                        {{ .Language.LanguageName }}
+                                    </a></li>
+                                {{ end }}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <nav class="flex items-center mobile:hidden">
+            {{ range .Site.Params.navigation.social -}}
+                <a class="text-white no-underline ml-4" href="{{ .URL }}" title="{{ .Name }}">{{ partial "icon" (dict "icon" .Identifier) }}</a>
+            {{ end }}
+        </nav>
+    </div>
+</section>

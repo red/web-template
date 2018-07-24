@@ -1,0 +1,4 @@
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+{{ if (fileExists "themes/featherweight/data/assetMap.json") -}}
+	<script src="{{ .Site.BaseURL }}{{ index .Site.Data.assetMap "main.js" }}"></script>
+{{- end }}

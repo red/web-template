@@ -1,0 +1,164 @@
+/* https://github.com/tailwindcss/tailwindcss/issues/449 */
+
+/* https://github.com/tailwindcss/discuss/issues/92 */
+
+/**
+ * Tailwind's preflight which resets the browser to be ready for Tailwind's utilities
+ */
+@import 'tailwindcss/preflight';
+
+/**
+ * Any custom component code. This comes before Tailwind's utilities to ensure the cascade doesn't
+ * affect utilities
+ */
+@import './utils';
+@import './menus';
+@import './accordion';
+@import './content';
+@import './svg-icons';
+
+/**
+ * Site-specific styles
+ */
+@import '../../../../src/styles/main';
+
+@import 'tailwindcss/components';
+
+/**
+ * Tailwind's utilities
+ */
+@import 'tailwindcss/utilities';
+
+/**
+* Custom styles/utilities that don't come out of the box with Tailwind.
+*/
+@font-face {
+	font-family: 'avenirHeavy';
+	src: url('/fonts/AvenirHeavy.ttf');
+}
+@font-face {
+	font-family: 'avenirMedium';
+	src: url('/fonts/AvenirMedium.ttf');
+}
+@font-face {
+	font-family: 'avenirLight';
+	src: url('/fonts/AvenirLight.ttf');
+}
+@font-face {
+	font-family: 'avenirBook';
+	src: url('/fonts/AvenirBook.ttf');
+}
+
+.avenir {
+	font-family: 'avenirMedium', sans-serif;
+}
+
+.avenir-light {
+	font-family: 'avenirLight', sans-serif;
+}
+
+.avenir-book {
+	font-family: 'avenirBook', sans-serif;
+}
+
+.avenir-heavy {
+	font-family: 'avenirHeavy', sans-serif;
+}
+
+/* TODO */
+.avenir-black {
+	font-family: 'avenirHeavy', sans-serif;
+}
+
+.bg-blue-gradient {
+	background-image: linear-gradient(
+		to bottom,
+		config('colors.rl-light-blue'),
+		config('colors.rl-deep-blue')
+	);
+}
+
+.bg-blue-gradient-reverse {
+	background-image: linear-gradient(
+		to top,
+		config('colors.rl-light-blue'),
+		config('colors.rl-deep-blue')
+	);
+}
+
+@responsive {
+	.grid-col-2-reverse > div {
+		grid-row: 1;
+	}
+
+	.grid-col-2-reverse > div:nth-of-type(1) {
+		grid-column: 2;
+	}
+
+	.grid-col-2-reverse > div:nth-of-type(2) {
+		grid-column: 1;
+	}
+}
+
+@media (max-width: config('screens.md')) {
+	.mobile\:hidden {
+		display: none;
+	}
+}
+
+@extends {
+	margin: 0px;
+}
+
+.rl-l-title-underline::after {
+	content: ' ';
+	display: block;
+	margin: 7px 0 16px 0;
+	width: 25px;
+	height: 4px;
+	background-color: config('colors.rl-red');
+}
+
+.rl-ctr-title-underline::after {
+	content: ' ';
+	display: block;
+	margin: 7px auto 16px auto;
+	width: 45px;
+	height: 4px;
+	background-color: config('colors.rl-red');
+}
+
+a.content-li {
+	@apply .block .py-2 .no-underline;
+}
+
+a.content-li:not(:last-child) {
+	@apply .border-b .border-rl-gray;
+}
+
+/* http://embedresponsively.com/ */
+.embed-container {
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+	overflow: hidden;
+	max-width: 100%;
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.bg-green-gradient {
+	background-image: linear-gradient(
+		to left,
+		config('colors.rl-green'),
+		config('colors.rl-green-darker')
+	);
+}

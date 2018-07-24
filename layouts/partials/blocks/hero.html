@@ -1,0 +1,17 @@
+<section class="bg-theme-gradient text-white md:pt-8 pb-8">
+    <div class="container mx-auto grid grid-columns-1 md:grid-columns-2
+    {{- with .Params.image_position -}}
+        {{- if eq "left" . }} md:grid-col-2-reverse{{- end -}}
+    {{- end -}}">
+        <div class="p-8">
+            {{- with .Params.heading -}}<h1 class="mb-2">{{ markdownify . }}</h1>{{- end -}}
+            {{- with .Params.content -}}<p class="text-grey-darker">{{ markdownify . }}</p>{{- end -}}
+            {{- if and .Params.button_url .Params.button_text -}}
+                <a class="btn btn-red" href="{{ .Params.button_url }}">{{ .Params.button_text }}</a>
+            {{- end -}}
+        </div>
+        <div class="p-8 text-black bg-blue-lightest">
+            diagram
+        </div>
+    </div>
+</section>

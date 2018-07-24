@@ -1,0 +1,18 @@
+{{/* Note that video embeds should not have an explicit size on them - e.g.
+	<iframe src="https://www.youtube.com/embed/SGjVUfiZBLA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> */}}
+
+{{- $videoSplash := (eq .Params.type "video") -}}
+<section class="py-4 m-4">
+    <div class="container mx-auto flex flex-col items-center">
+        <div class="inline-block mb-4">
+            <h3 class="font-semibold text-2xl text-rl-gray rl-ctr-title-underline">{{ .Params.heading }}</h3>
+        </div>
+		<div class="p-4 sm:p-8 w-full md:min-w-lg max-w-lg bg-white rounded-xl shadow-blurred">
+			{{ if $videoSplash }}
+				<div class="embed-container">{{ .Params.src | safeHTML }}</div>
+			{{ else }}
+				<img class="rounded-xl" src="{{ .Params.src }}">
+			{{ end }}
+		</div>
+	</div>
+</section>
