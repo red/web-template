@@ -2,3 +2,4 @@
 {{ if (fileExists "themes/featherweight/data/assetMap.json") -}}
 	<script src="{{ .Site.BaseURL }}{{ index .Site.Data.assetMap "main.js" }}"></script>
 {{- end }}
+{{ template "_internal/google_analytics_async.html" . }}
