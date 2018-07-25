@@ -19,7 +19,7 @@
             <div class="text-rl-gray mb-2">{{ .Date.Format "2 January, 2006" }} | {{ i18n "by" }} {{ .Params.author }}</div>
             <p class="text-grey-darker text-base">{{ .Summary }}</p>
         </div>
-        <p class="px-16 pt-6 pb-4 read-more-anchor">
+        <p class="px-4 md:px-16 pt-6 pb-4 read-more-anchor">
             <a class="btn-outline btn-outline-red" href="{{ .RelPermalink | relLangURL }}">Read More</a>
         </p>
         <!-- <div class="px-6 py-4">
