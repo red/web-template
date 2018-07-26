@@ -12,7 +12,7 @@
 		"watch": "cross-env NODE_ENV=development webpack --mode development --watch",
 		"start": "yarn run watch",
 		"prebuild": "yarn run clean",
-		"build": "cross-env NODE_ENV=production webpack --mode production --progress",
+		"build": "cross-env NODE_ENV=production webpack --mode production",
 		"fmt": "prettier --write \"src/**/*.{js,ts,scss,css}\"",
 		"lint": "eslint \"src/js/**/*.{js,ts}\" && stylelint \"src/styles/**/*.css\""
 	},
