@@ -68,7 +68,7 @@
 	top: 2.1em;
 	margin-left: -1px; /* stretch to match parent width */
 	width: calc(100% + 2px);
-	@apply .absolute .hidden .pin-l .pin-r .z-10;
+	@apply .absolute .hidden .pin-l .pin-r .z-20;
 	@apply .border-r .border-b .border-l .border-blue-darkest .rounded-b;
 }
 
@@ -86,6 +86,14 @@
 
 .dropdown .submenu li:last-child .dropdown-item {
 	@apply .rounded-b;
+}
+
+.dropdown .submenu {
+	width: calc(100% + 0.5px);
+}
+
+#lang-nav .dropdown .submenu {
+	margin-left: -0.5px;
 }
 
 /* .submenu {
