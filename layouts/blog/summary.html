@@ -7,7 +7,7 @@
                         <div class="h-80 bg-center bg-no-repeat bg-cover" style="background-image: url('{{ .Params.hero_src }}');"></div>
                     {{ end }}
                     {{ if (eq .Params.hero_type "video") }}
-                        {{ .Params.hero_src | safeHTML }}
+                        <div class="embed-container">{{ .Params.hero_src | safeHTML }}</div>
                     {{ end }}
                 </div>
             {{ else }}

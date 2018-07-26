@@ -13,7 +13,7 @@
 					<div class="min-h-xsm bg-center bg-no-repeat bg-cover" style="background-image: url('{{ .Params.hero_src }}');"></div>
 					{{ end }}
 					{{ if (eq .Params.hero_type "video") }}
-					{{ .Params.hero_src | safeHTML }}
+					<div class="embed-container">{{ .Params.hero_src | safeHTML }}</div>
 					{{ end }}
 				</div>
                 <div class="absolute pin-b pin-r -mb-4 mr-12 text-rl-gray bg-rl-gray-lightest pl-8 py-4 rounded-xl text-left min-w-xs">{{ i18n "category" }}: {{ .Params.category | title }}</div>
@@ -42,7 +42,7 @@
 			{{- if eq .template "narrow-cta" -}}{{ partial "blocks/narrow-cta" (dict "Params" .) }}{{- end -}}
 		{{- end -}}
 	{{ else }}
-		{{ $p := (dict "heading" (i18n "cta_heading") "content" (i18n "cta_desc") "button_text" (i18n "contact") "button_url" (relLangURL "contact/") "bg_dark" true)}}
+		{{ $p := (dict "heading" (i18n "cta_heading") "content" (i18n "cta_desc") "button_text" (i18n "contact") "button_url" (relLangURL "contact/") "bg_dark" false)}}
 		{{ $p2 := (dict "description" (i18n "cta_narrow_heading") "link_text" (i18n "cta_narrow_text") "link_url" (relLangURL "contact/")) }}
 		<div class="min-h-xs flex flex-col justify-center">
 			{{ partial "blocks/action-feature" (dict "Params" $p) }}
