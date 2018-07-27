@@ -10,8 +10,8 @@
 	line-height: 1.5;
 }
 
-.content p {
-	margin: 0.5rem 0;
+.content p:not(:last-child) {
+	margin-bottom: 1rem;
 }
 
 .content h1,
