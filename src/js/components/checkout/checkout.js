@@ -96,31 +96,41 @@ let initialForm = Vue.component('initial-form', {
 		},
 		validateFirstname() {
 			let err = null;
-			if (!this.firstname) err = 'Cannot leave the first name blank';
+			if (!this.firstname) {
+				err = 'Cannot leave the first name blank';
+			}
 			this.firstnameError = err;
 			return err;
 		},
 		validateLastname() {
 			let err = null;
-			if (!this.lastname) err = 'Cannot leave the last name blank';
+			if (!this.lastname) {
+				err = 'Cannot leave the last name blank';
+			}
 			this.lastnameError = err;
 			return err;
 		},
 		validateAddress1() {
 			let err = null;
-			if (!this.address1) err = 'Cannot leave this address line blank';
+			if (!this.address1) {
+				err = 'Cannot leave this address line blank';
+			}
 			this.address1Error = err;
 			return err;
 		},
 		validateAddress2() {
 			let err = null;
-			if (!this.address2) err = 'Cannot leave this address line blank';
+			if (!this.address2) {
+				err = 'Cannot leave this address line blank';
+			}
 			this.address2Error = err;
 			return err;
 		},
 		validateEmail() {
 			let err = null;
-			if (!this.email) err = 'Cannot leave the email blank';
+			if (!this.email) {
+				err = 'Cannot leave the email blank';
+			}
 			this.emailError = err;
 			return err;
 		}
