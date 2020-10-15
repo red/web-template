@@ -37,14 +37,14 @@ let initialForm = Vue.component('initial-form', {
 	data() {
 		return {
 			// fields
-			firstname: '',
-			lastname: '',
+			firstName: '',
+			lastName: '',
 			address1: '',
 			address2: '',
 			email: '',
 			// errors
-			firstnameError: null,
-			lastnameError: null,
+			firstNameError: null,
+			lastNameError: null,
 			address1Error: null,
 			address2Error: null,
 			emailError: null
@@ -57,33 +57,37 @@ let initialForm = Vue.component('initial-form', {
 
 			let errors;
 
-			if (
-				this.validateFirstname() ||
-				this.validateLastname() ||
-				this.validateAddress1() ||
-				this.validateAddress2() ||
-				this.validateEmail()
-			) {
+			if (this.validateFirstName()) {
+				errors = true;
+			}
+			if (this.validateLastName()) {
+				errors = true;
+			}
+			if (this.validateAddress1()) {
+				errors = true;
+			}
+			if (this.validateAddress2()) {
+				errors = true;
+			}
+			if (this.validateEmail()) {
 				errors = true;
 			}
 
 			if (!errors) {
 				this.submitForm({
-					firstname: this.firstname,
-					lastname: this.lastname,
+					firstName: this.firstName,
+					lastName: this.lastName,
 					address1: this.address1,
 					address2: this.address2,
 					email: this.email
 				});
-			} else {
-				console.log('there are errors');
 			}
 		},
-		updateFirstname(name) {
-			this.firstname = name;
+		updateFirstName(name) {
+			this.firstName = name;
 		},
-		updateLastname(name) {
-			this.lastname = name;
+		updateLastName(name) {
+			this.lastName = name;
 		},
 		updateAddress1(address) {
 			this.address1 = address;
@@ -94,20 +98,20 @@ let initialForm = Vue.component('initial-form', {
 		updateEmail(email) {
 			this.email = email;
 		},
-		validateFirstname() {
+		validateFirstName() {
 			let err = null;
-			if (!this.firstname) {
+			if (!this.firstName) {
 				err = 'Cannot leave the first name blank';
 			}
-			this.firstnameError = err;
+			this.firstNameError = err;
 			return err;
 		},
-		validateLastname() {
+		validateLastName() {
 			let err = null;
-			if (!this.lastname) {
+			if (!this.lastName) {
 				err = 'Cannot leave the last name blank';
 			}
-			this.lastnameError = err;
+			this.lastNameError = err;
 			return err;
 		},
 		validateAddress1() {
@@ -131,8 +135,15 @@ let initialForm = Vue.component('initial-form', {
 			if (!this.email) {
 				err = 'Cannot leave the email blank';
 			}
+			if (!err && !this.isValidEmailRegex(this.email)) {
+				err = 'Must use a valid email';
+			}
 			this.emailError = err;
 			return err;
+		},
+		isValidEmailRegex(email) {
+			const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(String(email).toLowerCase());
 		}
 	},
 	components: {
@@ -145,18 +156,18 @@ let initialForm = Vue.component('initial-form', {
 					Billing Information for your DiaGrammar Purchase
 				</legend>
 				<labeled-input 
-					name="firstname"
+					name="firstName"
 					label="First name"
-					:change="updateFirstname"
-					:value="firstname"
-					:error="firstnameError"
+					:change="updateFirstName"
+					:value="firstName"
+					:error="firstNameError"
 				/>
 				<labeled-input 
-					name="lastname"
+					name="lastName"
 					label="Last name"
-					:change="updateLastname"
-					:value="lastname"
-					:error="lastnameError"
+					:change="updateLastName"
+					:value="lastName"
+					:error="lastNameError"
 				/>
 				<labeled-input 
 					name="address1"
@@ -190,26 +201,4 @@ let initialForm = Vue.component('initial-form', {
 	`
 });
 
-let checkout = Vue.component('checkout-component', {
-	data() {
-		return {
-			showInitialForm: true
-		};
-	},
-	methods: {
-		handleSubmission(data) {
-			console.log(data);
-		}
-	},
-	components: {
-		initialForm
-	},
-	template: `
-		<div v-if="showInitialForm">
-			<initial-form :submit-form="handleSubmission"></initial-form>
-		</div>
-		<span v-else>TODO</span>
-	`
-});
-
-export { checkout };
+export { initialForm };
