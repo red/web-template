@@ -2,20 +2,21 @@ import Vue from 'vue';
 import { initialForm } from './initialForm';
 
 let paddleWrapper = Vue.component('paddle-wrapper', {
-	props: ['return', 'initialFormData'],
+	props: ['return', 'advance', 'initialFormData'],
 	data() {
 		return {};
 	},
 	methods: {
 		returnToPrevious() {
 			this.return({});
+		},
+		toLoadingView() {
+			this.advance();
 		}
 	},
 	mounted() {
 		let data = this.initialFormData;
-		let passthrough = `["${data.firstName}" "${data.lastName}" "${data.address1}" "${
-			data.address2
-		}"]`;
+		let passthrough = `["${data.firstName}" "${data.lastName}" "${data.address1}" "${data.address2}"]`;
 
 		let paddleConfig = {
 			title: 'DiaGrammar',
@@ -23,8 +24,8 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 			email: data.email,
 			passthrough,
 			coupon: '3F8063B8',
-			successCallback: (...args) => {
-				console.log('args?', ...args);
+			successCallback: () => {
+				this.advance();
 			}
 		};
 
@@ -42,9 +43,14 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 		window.Paddle.Checkout.open(paddleConfig);
 	},
 	template: `
-		<div>
-			<button @click="returnToPrevious">Return to previous form</button>
-			<div class="inline-checkout max-w-md m-auto"></div>
+		<div class="content">
+			<div class="inline-checkout"></div>
+			<a
+				class="ml-4"
+				@click="returnToPrevious"
+			>
+				Restart checkout
+			</a>
 		</div>
 	`
 });
@@ -52,15 +58,35 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 let checkout = Vue.component('checkout-component', {
 	data() {
 		return {
-			showInitialForm: true,
+			views: {
+				initialForm: 0,
+				paddleWrapper: 1,
+				loadingView: 2,
+				successView: 3,
+				failureView: 4
+			},
+			showing: 0, // initialForm
 			initialFormData: {}
 		};
 	},
 	methods: {
-		switchForms(data) {
-			console.log(data);
+		toInitialForm() {
+			this.initialFormData = {};
+			this.showing = this.views.initialForm;
+		},
+		toPaddleWrapper(data) {
 			this.initialFormData = data;
-			this.showInitialForm = !this.showInitialForm;
+			this.showing = this.views.paddleWrapper;
+		},
+		toLoadingView() {
+			this.initialFormData = {};
+			this.showing = this.views.loadingView;
+		},
+		toSuccessView() {
+			this.showing = this.views.successView;
+		},
+		toFailureView() {
+			this.showing = this.views.failureView;
 		}
 	},
 	components: {
@@ -68,14 +94,20 @@ let checkout = Vue.component('checkout-component', {
 		paddleWrapper
 	},
 	template: `
-		<div v-if="showInitialForm">
-			<initial-form :submit-form="switchForms"></initial-form>
-		</div>
-		<div v-else>
-			<paddle-wrapper
-				:return="switchForms"
-				:initial-form-data="initialFormData"
-			></paddle-wrapper>
+		<div class="card max-w-md m-auto w-min-content min-w-sm">
+			<div v-if="showing === views.initialForm">
+				<initial-form :submit-form="toPaddleWrapper"></initial-form>
+			</div>
+			<div v-else-if="showing === views.paddleWrapper">
+				<paddle-wrapper
+					:return="toInitialForm"
+					:advance="toLoadingView"
+					:initial-form-data="initialFormData"
+				></paddle-wrapper>
+			</div>
+			<div v-else-if="showing === views.loadingView">Loading</div>
+			<div v-else-if="showing === views.successView">Success</div>
+			<div v-else-if="showing === views.failureView">Failure</div>
 		</div>
 	`
 });

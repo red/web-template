@@ -150,7 +150,7 @@ let initialForm = Vue.component('initial-form', {
 		labeledInput
 	},
 	template: `
-		<div class="card max-w-md m-auto">
+		<div>
 			<form @submit="submit">
 				<legend class="avenir-black font-bold text-grey-darker text-2xl no-underline">
 					Billing Information for your DiaGrammar Purchase

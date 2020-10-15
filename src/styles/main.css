@@ -162,3 +162,12 @@ a.content-li:not(:last-child) {
 		config('colors.rl-green-darker')
 	);
 }
+
+/* Include this class so that it does not get cleaned up by PurgeCSS */
+.inline-checkout {
+	position: relative;
+}
+
+.w-min-content {
+	width: min-content;
+}
