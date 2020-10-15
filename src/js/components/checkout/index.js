@@ -16,7 +16,9 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 	},
 	mounted() {
 		let data = this.initialFormData;
-		let passthrough = `["${data.firstName}" "${data.lastName}" "${data.address1}" "${data.address2}"]`;
+		let passthrough = `["${data.firstName}" "${data.lastName}" "${data.address1}" "${
+			data.address2
+		}"]`;
 
 		let paddleConfig = {
 			title: 'DiaGrammar',
