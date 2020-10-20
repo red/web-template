@@ -1,24 +1,20 @@
 import Vue from 'vue';
 import { initialForm } from './initialForm';
+import { spinner } from '../spinner';
 
 let paddleWrapper = Vue.component('paddle-wrapper', {
-	props: ['return', 'advance', 'initialFormData'],
+	props: ['return', 'toLoading', 'toFailure', 'toSuccess', 'initialFormData'],
 	data() {
 		return {};
 	},
 	methods: {
 		returnToPrevious() {
 			this.return({});
-		},
-		toLoadingView() {
-			this.advance();
 		}
 	},
 	mounted() {
 		let data = this.initialFormData;
-		let passthrough = `["${data.firstName}" "${data.lastName}" "${data.address1}" "${
-			data.address2
-		}"]`;
+		let passthrough = JSON.stringify(data);
 
 		let paddleConfig = {
 			title: 'DiaGrammar',
@@ -26,8 +22,71 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 			email: data.email,
 			passthrough,
 			coupon: '3F8063B8',
-			successCallback: () => {
-				this.advance();
+			successCallback: ({ checkout }) => {
+				let interval;
+				let cancel = false;
+				let count = 0;
+
+				const handleError = e => {
+					// TODO
+					console.error(e);
+				};
+
+				const handleSuccess = () => {
+					console.log('handle success');
+					clearInterval(interval);
+					cancel = true;
+					this.toSuccess();
+				};
+
+				const handleFailure = () => {
+					console.log('handle failure');
+					clearInterval(interval);
+					cancel = true;
+					this.toFailure();
+				};
+
+				const request = () => {
+					if (count === 5) {
+						handleFailure();
+						return;
+					} else {
+						count++;
+					}
+					fetch('https://api.redlake-tech.com/license/pull', {
+						method: 'POST',
+						headers: {
+							Connection: 'Keep-Alive',
+							'Keep-Alive': 'max=5',
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							checkout_id: checkout.id
+						})
+					})
+						.then(r => {
+							if (cancel) {
+								clearInterval(interval);
+								return;
+							}
+							return r.json();
+						})
+						.then(r => {
+							if (!r) {
+								return;
+							}
+							if (r.status) {
+								handleSuccess();
+							}
+						})
+						.catch(handleError);
+				};
+
+				request();
+				interval = setInterval(request, 3000);
+
+				console.log(checkout.id);
+				this.toLoading();
 			}
 		};
 
@@ -92,24 +151,31 @@ let checkout = Vue.component('checkout-component', {
 		}
 	},
 	components: {
+		spinner,
 		initialForm,
 		paddleWrapper
 	},
 	template: `
-		<div class="card max-w-md m-auto w-min-content min-w-sm">
+		<div class="card max-w-md m-auto w-min-content min-w-sm min-h-sm">
 			<div v-if="showing === views.initialForm">
 				<initial-form :submit-form="toPaddleWrapper"></initial-form>
 			</div>
 			<div v-else-if="showing === views.paddleWrapper">
 				<paddle-wrapper
 					:return="toInitialForm"
-					:advance="toLoadingView"
+					:to-loading="toLoadingView"
+					:to-failure="toFailureView"
+					:to-success="toSuccessView"
 					:initial-form-data="initialFormData"
 				></paddle-wrapper>
 			</div>
-			<div v-else-if="showing === views.loadingView">Loading</div>
+			<div v-else-if="showing === views.loadingView">
+				<spinner-component></spinner-component>
+			</div>
 			<div v-else-if="showing === views.successView">Success</div>
-			<div v-else-if="showing === views.failureView">Failure</div>
+			<div v-else-if="showing === views.failureView">
+				Unable to confirm that the checkout process was successful. Please check your emails for confirmation.
+			</div>
 		</div>
 	`
 });
