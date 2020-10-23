@@ -29,7 +29,7 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 				let cancel = false;
 				let count = 0;
 
-				const handleSuccess = (license) => {
+				const handleSuccess = license => {
 					clearInterval(interval);
 					cancel = true;
 					this.toSuccess(license);
@@ -59,14 +59,14 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 							checkout_id: checkout.id
 						})
 					})
-						.then((r) => {
+						.then(r => {
 							if (cancel) {
 								clearInterval(interval);
 								return;
 							}
 							return r.json();
 						})
-						.then((r) => {
+						.then(r => {
 							if (!r) {
 								return;
 							}
