@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import { initialForm } from './initialForm';
 import { spinner } from '../spinner';
+import { success } from './success';
+import { failure } from './failure';
 
 let paddleWrapper = Vue.component('paddle-wrapper', {
-	props: ['return', 'toLoading', 'toFailure', 'toSuccess', 'initialFormData'],
+	props: ['return', 'toLoading', 'toFailure', 'toSuccess', 'formData'],
 	data() {
 		return {};
 	},
@@ -13,7 +15,7 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 		}
 	},
 	mounted() {
-		let data = this.initialFormData;
+		let data = this.formData;
 		let passthrough = JSON.stringify(data);
 
 		let paddleConfig = {
@@ -27,20 +29,13 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 				let cancel = false;
 				let count = 0;
 
-				const handleError = e => {
-					// TODO
-					console.error(e);
-				};
-
-				const handleSuccess = () => {
-					console.log('handle success');
+				const handleSuccess = (license) => {
 					clearInterval(interval);
 					cancel = true;
-					this.toSuccess();
+					this.toSuccess(license);
 				};
 
 				const handleFailure = () => {
-					console.log('handle failure');
 					clearInterval(interval);
 					cancel = true;
 					this.toFailure();
@@ -64,28 +59,27 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 							checkout_id: checkout.id
 						})
 					})
-						.then(r => {
+						.then((r) => {
 							if (cancel) {
 								clearInterval(interval);
 								return;
 							}
 							return r.json();
 						})
-						.then(r => {
+						.then((r) => {
 							if (!r) {
 								return;
 							}
 							if (r.status) {
-								handleSuccess();
+								handleSuccess(r.data[0]);
 							}
 						})
-						.catch(handleError);
+						.catch(handleFailure);
 				};
 
 				request();
 				interval = setInterval(request, 3000);
 
-				console.log(checkout.id);
 				this.toLoading();
 			}
 		};
@@ -127,23 +121,24 @@ let checkout = Vue.component('checkout-component', {
 				failureView: 4
 			},
 			showing: 0, // initialForm
-			initialFormData: {}
+			formData: {},
+			license: ''
 		};
 	},
 	methods: {
 		toInitialForm() {
-			this.initialFormData = {};
+			this.formData = {};
 			this.showing = this.views.initialForm;
 		},
 		toPaddleWrapper(data) {
-			this.initialFormData = data;
+			this.formData = data;
 			this.showing = this.views.paddleWrapper;
 		},
 		toLoadingView() {
-			this.initialFormData = {};
 			this.showing = this.views.loadingView;
 		},
-		toSuccessView() {
+		toSuccessView(license) {
+			this.license = license;
 			this.showing = this.views.successView;
 		},
 		toFailureView() {
@@ -153,7 +148,9 @@ let checkout = Vue.component('checkout-component', {
 	components: {
 		spinner,
 		initialForm,
-		paddleWrapper
+		paddleWrapper,
+		success,
+		failure
 	},
 	template: `
 		<div class="card max-w-md m-auto w-min-content min-w-sm min-h-sm">
@@ -166,15 +163,18 @@ let checkout = Vue.component('checkout-component', {
 					:to-loading="toLoadingView"
 					:to-failure="toFailureView"
 					:to-success="toSuccessView"
-					:initial-form-data="initialFormData"
+					:form-data="formData"
 				></paddle-wrapper>
 			</div>
 			<div v-else-if="showing === views.loadingView">
 				<spinner-component></spinner-component>
 			</div>
-			<div v-else-if="showing === views.successView">Success</div>
+			<div v-else-if="showing === views.successView">
+				<success-component :form-data="formData" :license="license">
+				</success-component>
+			</div>
 			<div v-else-if="showing === views.failureView">
-				Unable to confirm that the checkout process was successful. Please check your emails for confirmation.
+				<failure-component></failure-component>
 			</div>
 		</div>
 	`
