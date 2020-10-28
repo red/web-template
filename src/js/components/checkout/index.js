@@ -7,7 +7,9 @@ import { failure } from './failure';
 let paddleWrapper = Vue.component('paddle-wrapper', {
 	props: ['return', 'toLoading', 'toFailure', 'toSuccess', 'formData'],
 	data() {
-		return {};
+		return {
+			loading: true
+		};
 	},
 	methods: {
 		returnToPrevious() {
@@ -24,12 +26,15 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 			email: data.email,
 			passthrough,
 			coupon: '3F8063B8',
+			loadCallback: () => {
+				this.loading = false;
+			},
 			successCallback: ({ checkout }) => {
 				let interval;
 				let cancel = false;
 				let count = 0;
 
-				const handleSuccess = license => {
+				const handleSuccess = (license) => {
 					clearInterval(interval);
 					cancel = true;
 					this.toSuccess(license);
@@ -59,14 +64,14 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 							checkout_id: checkout.id
 						})
 					})
-						.then(r => {
+						.then((r) => {
 							if (cancel) {
 								clearInterval(interval);
 								return;
 							}
 							return r.json();
 						})
-						.then(r => {
+						.then((r) => {
 							if (!r) {
 								return;
 							}
@@ -81,6 +86,8 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 				interval = setInterval(request, 3000);
 
 				this.toLoading();
+
+				return true;
 			}
 		};
 
@@ -97,9 +104,15 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 
 		window.Paddle.Checkout.open(paddleConfig);
 	},
+	components: { spinner },
 	template: `
-		<div class="content">
-			<div class="inline-checkout"></div>
+		<div class="content flex flex-col justify-between flex-1">
+			<div class="relative">
+				<div v-bind:class="[loading ? 'invisible' : '', 'inline-checkout']"></div>
+				<div v-bind:class="[loading ? '' : 'invisible h-0 w-0', 'absolute pin place-content-center']">
+					<spinner-component></spinner-component>
+				</div>
+			</div>
 			<a
 				class="ml-4"
 				@click="returnToPrevious"
@@ -153,11 +166,14 @@ let checkout = Vue.component('checkout-component', {
 		failure
 	},
 	template: `
-		<div class="card max-w-md m-auto w-min-content min-w-sm min-h-sm">
+		<div class="card max-w-md m-auto w-min-content min-w-sm min-h-sm flex flex-col justify-between">
 			<div v-if="showing === views.initialForm">
 				<initial-form :submit-form="toPaddleWrapper"></initial-form>
 			</div>
-			<div v-else-if="showing === views.paddleWrapper">
+			<div
+				v-else-if="showing === views.paddleWrapper"
+				class="flex-1 flex flex-col justify-between"
+			>
 				<paddle-wrapper
 					:return="toInitialForm"
 					:to-loading="toLoadingView"
@@ -166,7 +182,10 @@ let checkout = Vue.component('checkout-component', {
 					:form-data="formData"
 				></paddle-wrapper>
 			</div>
-			<div v-else-if="showing === views.loadingView">
+			<div
+				v-else-if="showing === views.loadingView"
+				class="absolute pin place-content-center"
+			>
 				<spinner-component></spinner-component>
 			</div>
 			<div v-else-if="showing === views.successView">

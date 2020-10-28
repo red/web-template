@@ -168,6 +168,11 @@ a.content-li:not(:last-child) {
 	position: relative;
 }
 
+.place-content-center {
+	display: grid;
+	place-content: center;
+}
+
 .w-min-content {
 	width: min-content;
 }
