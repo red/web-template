@@ -25,7 +25,7 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 			product: 616859,
 			email: data.email,
 			passthrough,
-			coupon: '3F8063B8',
+			allowQuantity: true,
 			loadCallback: () => {
 				this.loading = false;
 			},
