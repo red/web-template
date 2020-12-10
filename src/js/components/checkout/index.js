@@ -91,16 +91,16 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 			}
 		};
 
-		if (window.innerWidth > 550) {
-			// If desktop, show inline, else use overlay. Paddle inline checkout is not
-			// responsive.
-			Object.assign(paddleConfig, {
-				method: 'inline',
-				frameTarget: 'inline-checkout',
-				frameInitialHeight: 500,
-				frameStyle: 'width:495px; min-width:495px; background-color: transparent; border: none;'
-			});
-		}
+		// if (window.innerWidth > 550) {
+		// 	// If desktop, show inline, else use overlay. Paddle inline checkout is not
+		// 	// responsive.
+		// 	Object.assign(paddleConfig, {
+		// 		method: 'inline',
+		// 		frameTarget: 'inline-checkout',
+		// 		frameInitialHeight: 500,
+		// 		frameStyle: 'width:495px; min-width:495px; background-color: transparent; border: none;'
+		// 	});
+		// }
 
 		window.Paddle.Checkout.open(paddleConfig);
 	},
