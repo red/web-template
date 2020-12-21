@@ -1,18 +1,18 @@
 import Vue from 'vue';
 
 const success = Vue.component('success-component', {
-	props: ['formData', 'license'],
+	props: ['formData', 'licenses'],
 	template: `
 		<div>
 			<div class="avenir-black font-bold text-grey-darker text-2xl no-underline">
 				Congratulations, {{ formData.firstName }}!
 			</div>
 			<div class="mt-4">
-				Your DiaGrammar license is
+				Your DiaGrammar <span v-if="licenses.length == 1">license is</span><span v-else>licenses are</span>:
 				<div class="my-3">
-					<strong>
-						{{ license }}
-					</strong>
+					<div v-for="license in licenses">
+						{{ license.n }}. <strong><code style="background-color:#ddd;">{{ license.l }}</code></strong></br>
+					</div>
 				</div>
 				You should receive a confirmation email shortly.
 			</div>

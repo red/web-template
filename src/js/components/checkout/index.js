@@ -25,7 +25,7 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 			product: 616859,
 			email: data.email,
 			passthrough,
-			allowQuantity: false,
+			// allowQuantity: false,
 			loadCallback: () => {
 				this.loading = false;
 			},
@@ -34,10 +34,19 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 				let cancel = false;
 				let count = 0;
 
-				const handleSuccess = license => {
+				const handleSuccess = ls => {
 					clearInterval(interval);
 					cancel = true;
-					this.toSuccess(license);
+					let licenses = [];
+					let count = 0;
+					for (const l of ls) {
+						count += 1;
+						licenses.push({
+							n: ('00' + count).slice(-3),
+							l: l
+						});
+					}
+					this.toSuccess(licenses);
 				};
 
 				const handleFailure = () => {
@@ -76,7 +85,7 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 								return;
 							}
 							if (r.status) {
-								handleSuccess(r.data[0]);
+								handleSuccess(r.data);
 							}
 						})
 						.catch(handleFailure);
@@ -135,7 +144,7 @@ let checkout = Vue.component('checkout-component', {
 			},
 			showing: 0, // initialForm
 			formData: {},
-			license: ''
+			licenses: ''
 		};
 	},
 	methods: {
@@ -150,8 +159,8 @@ let checkout = Vue.component('checkout-component', {
 		toLoadingView() {
 			this.showing = this.views.loadingView;
 		},
-		toSuccessView(license) {
-			this.license = license;
+		toSuccessView(licenses) {
+			this.licenses = licenses;
 			this.showing = this.views.successView;
 		},
 		toFailureView() {
@@ -189,7 +198,7 @@ let checkout = Vue.component('checkout-component', {
 				<spinner-component></spinner-component>
 			</div>
 			<div v-else-if="showing === views.successView">
-				<success-component :form-data="formData" :license="license">
+				<success-component :form-data="formData" :licenses="licenses">
 				</success-component>
 			</div>
 			<div v-else-if="showing === views.failureView">
