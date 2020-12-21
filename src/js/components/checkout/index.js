@@ -25,7 +25,7 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 			product: 616859,
 			email: data.email,
 			passthrough,
-			// allowQuantity: false,
+			allowQuantity: false,
 			loadCallback: () => {
 				this.loading = false;
 			},
@@ -42,7 +42,7 @@ let paddleWrapper = Vue.component('paddle-wrapper', {
 					for (const l of ls) {
 						count += 1;
 						licenses.push({
-							n: ('00' + count).slice(-3),
+							n: ('  ' + count).slice(-3),
 							l: l
 						});
 					}

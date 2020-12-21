@@ -11,7 +11,7 @@ const success = Vue.component('success-component', {
 				Your DiaGrammar <span v-if="licenses.length == 1">license is</span><span v-else>licenses are</span>:
 				<div class="my-3">
 					<div v-for="license in licenses">
-						{{ license.n }}. <strong><code style="background-color:#ddd;">{{ license.l }}</code></strong></br>
+						<code v-if="licenses.length > 1">{{ license.n }}.  </code><strong><code style="background-color:#ddd;">{{ license.l }}</code></strong></br>
 					</div>
 				</div>
 				You should receive a confirmation email shortly.
