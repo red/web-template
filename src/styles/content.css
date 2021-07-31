@@ -6,12 +6,12 @@
  */
 
 .content {
-	letter-spacing: 0.02em;
-	line-height: 1.5;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
 }
 
 .content p:not(:last-child) {
-	margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .content h1,
@@ -20,79 +20,82 @@
 .content h4,
 .content h5,
 .content h6 {
-	@apply .avenir-black;
-
-	margin: 1rem 0 0.5rem 0;
+    @apply .avenir-black;
+    margin: 1rem 0 0.5rem 0;
 }
 
 .content code {
-	font-family: 'Droid Sans Mono', 'Menlo', 'Monaco', 'DejaVu Sans Mono', 'Consolas', 'Courier New',
-		monospace;
-	font-size: 0.85rem;
-	-moz-osx-font-smoothing: auto;
-	-webkit-font-smoothing: auto;
-	border-radius: 0.15rem;
-	border: 1px solid #333;
-	background: #202132;
-	padding: 0 0.15rem;
-	display: inline-block;
-	color: #ccc;
-	line-height: 1.3em;
+    font-family: 'Droid Sans Mono', 'Menlo', 'Monaco', 'DejaVu Sans Mono', 'Consolas', 'Courier New', monospace;
+    font-size: 0.85rem;
+    -moz-osx-font-smoothing: auto;
+    -webkit-font-smoothing: auto;
+    border-radius: 0.15rem;
+    border: 1px solid #333;
+    background: #202132;
+    padding: 0 0.15rem;
+    display: inline-block;
+    color: #ccc;
+    line-height: 1.3em;
 }
 
 .content pre {
-	max-width: 100%;
-	border: 1px solid #333;
-	background: #202132;
-	border-radius: 0.15rem;
-	padding: 0.45rem;
-	overflow-x: auto;
-	tab-size: 4;
-	margin: 0.5rem 0;
+    max-width: 100%;
+    border: 1px solid #333;
+    background: #202132;
+    border-radius: 0.15rem;
+    padding: 0.45rem;
+    overflow-x: auto;
+    tab-size: 4;
+    margin: 0.5rem 0;
 }
 
 .content pre code {
-	border: 0;
-	background: transparent;
-	padding: none;
+    border: 0;
+    background: transparent;
+    padding: none;
 }
 
 .content a {
-	color: config('colors.red-darker');
+    color: config('colors.red-darker');
 }
 
 .content a:hover {
-	color: config('colors.rl-red');
+    color: config('colors.rl-red');
 }
 
 .content table {
-	border-collapse: collapse;
-	border-spacing: 0;
-	background-color: white;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: white;
 }
 
 .content table th,
 .content table td {
-	/* border: 1px solid #999; */
-	padding: 6px 12px;
+    /* border: 1px solid #999; */
+    padding: 6px 12px;
 }
 
 .content table th {
-	text-align: left;
-	background: #ccc;
+    text-align: left;
+    background: #ccc;
 }
 
 .content table tr:nth-child(2n) {
-	background-color: #f9f9f9;
+    background-color: #f9f9f9;
 }
 
 .content .stripe {
-	background-color: #d91e0f;
-	height: 8px;
+    background-color: #d91e0f;
+    height: 8px;
 }
 
 .content blockquote {
-	font-style: italic;
-	color: #999;
-	padding-left: 1rem;
+    font-style: italic;
+    color: #999;
+    padding-left: 1rem;
+}
+
+.content p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
