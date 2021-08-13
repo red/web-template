@@ -63,6 +63,11 @@
     color: config('colors.rl-red');
 }
 
+.content img.animated-gif {
+    width: 720px;
+    height: 240px;
+}
+
 .content table {
     border-collapse: collapse;
     border-spacing: 0;
